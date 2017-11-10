@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # Python 2 - Logs Analysis Project - Udacity - Chris Fiorino
 
 import psycopg2
@@ -11,14 +12,12 @@ def question1():
     # Question 1: What are the most popular three articles of all time?
 
     # Connect to database and scan with cursor
-    db = psycopg2.connect(database=DBNAME)
-    c = db.cursor()
+    db, c = connect(DBNAME)
 
     """
     Run sql command to find three most popular articles of all time based
     on successful views
     """
-
     c.execute("""
         select title, count(path) as views
         from articles
@@ -31,6 +30,9 @@ def question1():
     # Use fetchall to store the results of the sql query
     results = c.fetchall()
 
+    # Close the database
+    db.close()
+
     # Print out the three most popular articles of all time
     print("What are the most popular three articles of all time? \n")
 
@@ -39,17 +41,13 @@ def question1():
         print(u'\u2022' + ' "' + str.title(result[0]) + '" - ' +
               str(result[1]) + " views")
 
-    # Close the database
-    db.close()
-
 
 # Question 2
 def question2():
     # Question 2: Who are the most popular article authors of all time?
 
     # Connect to database and scan with cursor
-    db = psycopg2.connect(database=DBNAME)
-    c = db.cursor()
+    db, c = connect(DBNAME)
 
     """
     Run sql command to show authors popularity based on all time
@@ -67,6 +65,9 @@ def question2():
     # Use fetchall to store the results of the sql query
     results = c.fetchall()
 
+    # Close the database
+    db.close()
+
     # Print out the three most popular articles of all time
     print("Who are the most popular article authors of all time? \n")
 
@@ -76,17 +77,13 @@ def question2():
             u'\u2022' + " " + str(result[0]) +
             " - " + str(result[1]) + " views")
 
-    # Close the database
-    db.close()
-
 
 # Question 3
 def question3():
     # Question 3: On which days did more than 1% of requests lead to errors?
 
     # Connect to database and scan with cursor
-    db = psycopg2.connect(database=DBNAME)
-    c = db.cursor()
+    db, c = connect(DBNAME)
 
     # Run sql command to show days where the % of error requests exceeded 1%
     c.execute("""
@@ -103,6 +100,9 @@ def question3():
     # Use fetchall to store the results of the sql query
     results = c.fetchall()
 
+    # Close the database
+    db.close()
+
     # Print out the three most popular articles of all time
     print("On which days did more than 1'%' of requests lead to errors? \n")
 
@@ -112,13 +112,26 @@ def question3():
             u'\u2022' + " " + "{:%b %d, %Y}".format(result[0]) +
             " - " + '{:.1f}'.format(result[1]) + '%' + " errors")
 
-    # Close the database
-    db.close()
+
+# Connect and scan the database
+def connect(database_name):
+    """Connect to the PostgreSQL database.  Returns a database connection."""
+    try:
+        db = psycopg2.connect("dbname={}".format(database_name))
+        c = db.cursor()
+        return db, c
+    except psycopg2.Error as e:
+        print "Unable to connect to database"
+        # THEN perhaps exit the program
+        sys.exit(1)
+        # OR perhaps throw an error
+        raise e
 
 
 # Run the three methods
-question1()
-print('\n')
-question2()
-print('\n')
-question3()
+if __name__ == '__main__':
+    question1()
+    print('\n')
+    question2()
+    print('\n')
+    question3()
