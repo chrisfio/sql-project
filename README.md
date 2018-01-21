@@ -13,7 +13,7 @@ The purpose of the analysis is to answer three questions:
 
 ## Instructions
 
-1. Install the VM created by Udacity, instructions can be found [here](https://classroom.udacity.com/nanodegrees/nd004/parts/8d3e23e1-9ab6-47eb-b4f3-d5dc7ef27bf0/modules/bc51d967-cb21-46f4-90ea-caf73439dc59/lessons/5475ecd6-cfdb-4418-85a2-f2583074c08d/concepts/14c72fe3-e3fe-4959-9c4b-467cf5b7c3a0). 
+1. Install the VM created by Vagrant, instructions can be found [here](https://www.vagrantup.com/intro/getting-started/index.html). 
 2. Download the newsdata.sql file found [here](http://video.udacity-data.com.s3.amazonaws.com/topher/2016/August/57b5f748_newsdata/newsdata.zip) to the VM. Once the newsdata.sql file is downloaded and uncompressed, it needs to be imported into the news database. Use the command `psql -d news -f newsdata.sql` inorder to call the PostgreSQL command line program, connect to the database named news which has been set up and run the SQL statements in the file newsdata.sql.
 3. Download the LogsAnalysisProject.py file to the same location in the VM as your newsdata.sql file. 
 4. Using your terminal, locate to the VM where your sql and py files are located. Run: `python LogsAnalysisProject.py` this will print out answers to the questions above.
