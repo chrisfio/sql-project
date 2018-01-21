@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # Python 2 - Logs Analysis Project - Udacity - Chris Fiorino
 
-import psycopg2
+import psycopg2, sys
 
 
 DBNAME = "news"
